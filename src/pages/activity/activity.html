@@ -17,9 +17,19 @@
     <ion-item>
       <ion-label>Type</ion-label>
       <ion-select formControlName="type" [(ngModel)]="defaultType">
-        <ion-option value="f">Female</ion-option>
-        <ion-option value="m">Male</ion-option>
+        <ion-option value="dead">Dead animal</ion-option>
+        <ion-option value="tracking">Tracking</ion-option>
+        <ion-option value="work">Work in progress</ion-option>
+        <ion-option value="help">Help</ion-option>
       </ion-select>
+    </ion-item>
+    <ion-item [hidden]="this.defaultType != f">
+      <ion-label>Game type</ion-label>
+      <ion-input type="text" formControlName="gameType"></ion-input>
+    </ion-item>
+    <ion-item [hidden]="this.defaultType != f">
+      <ion-label>Game category</ion-label>
+      <ion-input type="text" formControlName="gameCategory"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Date</ion-label>

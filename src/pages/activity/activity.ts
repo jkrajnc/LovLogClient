@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, ViewController } from 'ionic-angular';
+import { IonicPage, ViewController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 
@@ -15,26 +15,39 @@ export class ActivityPage {
   private defaultDate: string;
   private defaultType: string;
 
-  constructor(private viewCtrl: ViewController, private formBuilder: FormBuilder, private camera: Camera) {
+  constructor(private viewCtrl: ViewController, private navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera) {
+    //ustvarimo form
     this.activityData = this.formBuilder.group({
       title: ['', Validators.required],
-      description: ['', Validators.required],
       type: ['', Validators.required],
       date: ['', Validators.required],
-      image: ['']
+      description: [''],
+      image: [''],
+      latitude: [''],
+      longitude: [''],
+      gameType: [''],
+      gameCategory: ['']
     });
+    //default podatki, ki se prikazejo na formu ob odprtju
     this.defaultDate = new Date().toISOString();
-    this.defaultType = "f";
+    this.defaultType = "dead";
   }
 
+  /*ionViewWillLoad(){
+    this.activityData = this.navParams.get("data");
+  }*/
+
+  //posljemo podatke forma
   saveData() {
     this.viewCtrl.dismiss(this.activityData);
   }
 
+  //posljemo prazne podatke
   closeModal() {
     this.viewCtrl.dismiss(null);
   }
 
+  //izberemo sliko iz galerije
   pickPicture() {
     this.camera.getPicture({
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -47,6 +60,7 @@ export class ActivityPage {
     });
   }
 
+  //posnamemo novo sliko s kamero
   takePicture() {
     this.camera.getPicture({
       destinationType: this.camera.DestinationType.DATA_URL,
