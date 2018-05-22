@@ -1,0 +1,23 @@
+<!--
+  Generated template for the SeznamPorocilPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Seznam poročil</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item *ngFor="let porocilo of porocila" (click)="goToPorociloDetails(porocilo.aktivnosti)">
+      <ion-label color="danger">{{porocilo.naziv}}</ion-label>
+      <ion-datetime [disabled]="true" displayFormat="hh:MM | DD/mm/YYYY" [(ngModel)]="porocilo.datum_vnos"></ion-datetime>
+    </button>
+  </ion-list>
+</ion-content>
