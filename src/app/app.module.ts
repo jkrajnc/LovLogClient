@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera } from '@ionic-native/camera';
+import { IonicStorageModule } from '@ionic/storage';
 
 import {HttpClientModule} from "@angular/common/http";
 import { RestClan } from '../providers/rest-clan/rest-clan';
@@ -33,6 +34,7 @@ import {SeznamPorocilPage} from "../pages/seznam-porocil/seznam-porocil";
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

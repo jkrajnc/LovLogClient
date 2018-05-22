@@ -1,18 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController, Platform, ModalController, Modal } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, Platform, ModalController, Modal, AlertController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker,
-  LatLng,
-  GoogleMapsAnimation,
-  GoogleMapsMapTypeId
-} from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, MarkerOptions, Marker, LatLng, GoogleMapsAnimation, GoogleMapsMapTypeId } from '@ionic-native/google-maps';
+import { Storage } from '@ionic/storage';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'page-map',
@@ -23,113 +14,22 @@ export class MapPage {
 
   map: GoogleMap;
 
-
-  constructor(public navCtrl: NavController, private platform: Platform, public modalCtrl: ModalController, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, private platform: Platform, public modalCtrl: ModalController, public geolocation: Geolocation, private storage: Storage, private alertCtrl: AlertController) {
+    //ko se vse zazene inicializiramo mapo
     platform.ready().then(() => {
       this.initMap();
-    });
-  }
-
-  /*ionViewDidLoad() {
-    this.initMap();
-  }
-
-  initMap() {
-    this.geolocation.getCurrentPosition().then((position) => {
-
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-      let mapOptions = {
-        center: latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
-
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-    }, (err) => {
-      console.log(err);
-    });
-  }
-
-  addMarkerButton() {
-    this.openActivityModal();
-    //console.log(activityData);
-    //subscribe
-
-  }
-
-  addInfoWindow(marker, content) {
-
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    });
-
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    });
-
-  }
-
-  openActivityModal() {
-    const activityModal: Modal = this.modalCtrl.create('ActivityPage');
-    activityModal.present();
-    activityModal.onWillDismiss((data) => {
-      if (data != null) {
-        let marker = new google.maps.Marker({
-          map: this.map,
-          animation: google.maps.Animation.DROP,
-          position: this.map.getCenter()
-        });
-        let content = "<h4>" + data.value.title + "</h4>";
-        this.addInfoWindow(marker, content);
-      }
-    });
-  }*/
-
-  /*loadMap() {
-
-    let mapOptions: GoogleMapOptions = {
-      camera: {
-        target: {
-          lat: 43.0741904,
-          lng: -89.3809802
-        },
-        zoom: 18,
-        tilt: 30
-      }
-    };
-
-    //this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    this.map = GoogleMaps.create('map', mapOptions);
-
-    // Wait the MAP_READY before using any methods.
-    this.map.one(GoogleMapsEvent.MAP_READY)
-      .then(() => {
-        console.log('Map is ready!');
-
-        // Now you can use all methods safely.
-        this.map.addMarker({
-          title: 'Ionic',
-          icon: 'blue',
-          animation: 'DROP',
-          position: {
-            lat: 43.0741904,
-            lng: -89.3809802
-          }
-        })
-          .then(marker => {
-            marker.on(GoogleMapsEvent.MARKER_CLICK)
-              .subscribe(() => {
-                alert('clicked');
-              });
+      this.storage.get('markerData').then((markerData) => {
+        if (markerData != null) {
+          markerData.forEach(element => {
+            this.createMarker(element);
           });
-
+        }
       });
-  }*/
+    });
+  }
 
-  initMap() {
-
+  //mapo inicializiramo glede na naso lokacijo, preko geolokacije, ustvarimo tudi click event
+  /*initMap() {
     this.geolocation.getCurrentPosition().then((resp) => {
       let mapOptions: GoogleMapOptions = {
         mapTypeId: GoogleMapsMapTypeId.ROADMAP,
@@ -148,27 +48,95 @@ export class MapPage {
     }).catch((error) => {
       console.log('Error getting location', error);
     });
+  }*/
+
+  initMap() {
+    let mapOptions: GoogleMapOptions = {
+      mapTypeId: GoogleMapsMapTypeId.ROADMAP,
+      camera: {
+        target: {
+          lat: 40.730610,
+          lng: -73.935242
+        },
+        zoom: 16,
+        tilt: 30
+      }
+    };
+
+    this.map = GoogleMaps.create('map', mapOptions);
+    this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe(this.onMapClick.bind(this));
   }
 
+  //ob kliku prvo pridobimo koordinate klika, ki jih nato posljemo v modalno okno
   onMapClick(params: any[]) {
     let latLng: LatLng = params[0];
-    this.openActivityModal(latLng);
+    this.openAddActivityModal(latLng);
   }
 
-  addMarkerButton() {
+  //ob kliku na gumb pridobimo nase koordinate, ki jih nato posljemo v modalno okno
+  /*addMarkerButton() {
     this.geolocation.getCurrentPosition().then((resp) => {
       let latLng: LatLng = new LatLng(resp.coords.latitude, resp.coords.longitude);
       this.openActivityModal(latLng);
     }).catch((error) => {
       console.log('Error getting location', error);
     });
+  }*/
+
+  createMarker(data: any) {
+    //poljubni parametri za nas marker
+    let options: MarkerOptions = {
+      title: data.title,
+      position: { lat: data.latitude, lng: data.longitude },
+      animation: GoogleMapsAnimation.DROP
+    };
+
+    //ustvarimo marker
+    this.map.addMarker(options).then((marker: Marker) => {
+      marker.hideInfoWindow();
+    });
   }
 
-  openActivityModal(position: LatLng) {
-    const activityModal: Modal = this.modalCtrl.create('ActivityPage');
-    activityModal.present();
-    activityModal.onWillDismiss((data) => {
+  //ustvarimo modalno okno in ob zaprtju vrnemo podatke, ce podatki niso null ustvarimo marker
+  openAddActivityModal(position: LatLng) {
+    const addActivityModal: Modal = this.modalCtrl.create('AddActivityPage');
+    addActivityModal.present();
+    addActivityModal.onWillDismiss((data) => {
       if (data != null) {
+        //v podatke shranimo koordinate
+        data.value.latitude = position.lat;
+        data.value.longitude = position.lng;
+
+        //ustvarimo marker
+        this.createMarker(data.value);
+
+        //shranimo podatke markerja v local storagu
+        this.storage.get('markerData').then((markerData) => {
+          if (markerData == null) {
+            markerData = [data.value];
+            this.storage.set('markerData', markerData);
+            console.log(markerData);
+          } else {
+            markerData.push(data.value);
+            this.storage.set('markerData', markerData);
+            console.log(markerData);
+          }
+        });
+      }
+
+    });
+  }
+
+  editActivityModal(data: any) {
+    const activityModal: Modal = this.modalCtrl.create('ActivityPage', { data: data });
+    activityModal.present();
+
+
+    /*activityModal.onWillDismiss((data) => {
+      if (data != null) {
+        data.value.latitude = position.lat;
+        data.value.longitude = position.lng;
+        console.log(data);
         let options: MarkerOptions = {
           title: data.value.title,
           position: { lat: position.lat, lng: position.lng },
@@ -178,6 +146,33 @@ export class MapPage {
         this.map.addMarker(options).then((marker: Marker) => {
           marker.hideInfoWindow();
         });
+      }
+    });*/
+  }
+
+  //ustvarimo modalno okno za porocilo
+  openAddReportModal() {
+    //preverimo ce sploh imamo markerje na zemljevidu, ce jih ni ustvarimo alert
+    this.storage.get('markerData').then((markerData) => {
+      if (markerData != null) {
+        const addReportModal: Modal = this.modalCtrl.create('AddReportPage');
+        addReportModal.present();
+        addReportModal.onWillDismiss((data) => {
+          //ce dobimo podatke od modalnega okna jih shranimo, posljemo na bazo in izbrisemo iz local storega ter mape
+          if (data != null) {
+            data.value.markerData = markerData;
+            this.storage.remove("markerData");
+            this.map.clear();
+          }
+        });
+      } else {
+        //ustvarimo alert
+        let alert = this.alertCtrl.create({
+          title: 'No activities',
+          subTitle: 'You have no activities on your map! Please add some and then send a report.',
+          buttons: ['OK']
+        });
+        alert.present();
       }
     });
   }
