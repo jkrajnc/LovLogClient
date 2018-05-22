@@ -1,0 +1,65 @@
+<!--
+  Generated template for the DetailsAktivnostiPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Aktivnost</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+
+      <ion-label>
+        Tip Aktivnosti:
+      </ion-label>
+      <div item-content>
+        {{aktivnost.tip_aktivnost}}
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Čas aktivnosti:
+      </ion-label>
+      <div item-content>
+        {{aktivnost.datum_vnos | date:"hh:MM"}}
+      </div>
+    </ion-item>
+    <ion-item *ngIf="aktivnost.tip_divjad">
+      <ion-label>
+        Tip divjadi:
+      </ion-label>
+      <div item-content>
+        {{aktivnost.tip_divjad}}
+      </div>
+    </ion-item>
+    <ion-item *ngIf="aktivnost.starostna_kategorija">
+      <ion-label>
+        Starostna kategorija:
+      </ion-label>
+      <div item-content>
+        {{aktivnost.starostna_kategorija}}
+      </div>
+    </ion-item>
+
+
+    <ion-item *ngIf="aktivnost.opomba" text-wrap>
+      <ion-label>
+        Opis
+      </ion-label>
+      <div item-content>
+        {{aktivnost.opomba}}
+      </div>
+
+    </ion-item>
+  </ion-list>
+</ion-content>
