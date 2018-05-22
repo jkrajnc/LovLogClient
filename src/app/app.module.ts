@@ -8,6 +8,8 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Camera } from '@ionic-native/camera';
 
 import {HttpClientModule} from "@angular/common/http";
 import { RestClan } from '../providers/rest-clan/rest-clan';
@@ -21,6 +23,7 @@ import {SeznamPorocilPage} from "../pages/seznam-porocil/seznam-porocil";
   declarations: [
     MyApp,
     HomePage,
+    MapPage,
     ListPage,
     SeznamPorocilPage,
     SeznamAktivnostiPage,
@@ -35,6 +38,7 @@ import {SeznamPorocilPage} from "../pages/seznam-porocil/seznam-porocil";
   entryComponents: [
     MyApp,
     HomePage,
+    MapPage,
     ListPage,
     SeznamPorocilPage,
     SeznamAktivnostiPage,
@@ -43,6 +47,8 @@ import {SeznamPorocilPage} from "../pages/seznam-porocil/seznam-porocil";
   providers: [
     StatusBar,
     SplashScreen,
+    Geolocation,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestClan,
     RestPorociloProvider,
