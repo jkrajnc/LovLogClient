@@ -4,10 +4,10 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @IonicPage()
 @Component({
-  selector: 'page-report',
-  templateUrl: 'report.html',
+  selector: 'page-addReport',
+  templateUrl: 'addReport.html',
 })
-export class ReportPage {
+export class AddReportPage {
 
   private reportData: FormGroup;
   private defaultDate: string;

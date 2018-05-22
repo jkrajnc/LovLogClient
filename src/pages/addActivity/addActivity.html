@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Add activity</ion-title>
+    <ion-title *ngIf="defaultType=='dead'">Add activity</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -23,11 +23,11 @@
         <ion-option value="help">Help</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item [hidden]="this.defaultType != f">
+    <ion-item [hidden]="defaultType == 'dead'">
       <ion-label>Game type</ion-label>
       <ion-input type="text" formControlName="gameType"></ion-input>
     </ion-item>
-    <ion-item [hidden]="this.defaultType != f">
+    <ion-item [hidden]="defaultType == 'dead'">
       <ion-label>Game category</ion-label>
       <ion-input type="text" formControlName="gameCategory"></ion-input>
     </ion-item>
@@ -36,10 +36,10 @@
       <ion-datetime displayFormat="DD/MM/YYYY" formControlName="date" [(ngModel)]="defaultDate"></ion-datetime>
     </ion-item>
     <ion-item>
-      <button ion-button icon-only (click)="takePicture()">
+      <button ion-button icon-only type="button" (click)="takePicture()">
         <ion-icon name="camera"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="pickPicture()">
+      <button ion-button icon-only type="button" (click)="pickPicture()">
         <ion-icon name="images"></ion-icon>
       </button>
       <img [src]="base64Image" *ngIf="base64Image" />

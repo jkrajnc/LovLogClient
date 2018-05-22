@@ -70,7 +70,7 @@ export class MapPage {
   //ob kliku prvo pridobimo koordinate klika, ki jih nato posljemo v modalno okno
   onMapClick(params: any[]) {
     let latLng: LatLng = params[0];
-    this.openActivityModal(latLng);
+    this.openAddActivityModal(latLng);
   }
 
   //ob kliku na gumb pridobimo nase koordinate, ki jih nato posljemo v modalno okno
@@ -98,10 +98,10 @@ export class MapPage {
   }
 
   //ustvarimo modalno okno in ob zaprtju vrnemo podatke, ce podatki niso null ustvarimo marker
-  openActivityModal(position: LatLng) {
-    const activityModal: Modal = this.modalCtrl.create('ActivityPage');
-    activityModal.present();
-    activityModal.onWillDismiss((data) => {
+  openAddActivityModal(position: LatLng) {
+    const addActivityModal: Modal = this.modalCtrl.create('AddActivityPage');
+    addActivityModal.present();
+    addActivityModal.onWillDismiss((data) => {
       if (data != null) {
         //v podatke shranimo koordinate
         data.value.latitude = position.lat;
@@ -151,13 +151,13 @@ export class MapPage {
   }
 
   //ustvarimo modalno okno za porocilo
-  openReportModal() {
+  openAddReportModal() {
     //preverimo ce sploh imamo markerje na zemljevidu, ce jih ni ustvarimo alert
     this.storage.get('markerData').then((markerData) => {
       if (markerData != null) {
-        const reportModal: Modal = this.modalCtrl.create('ReportPage');
-        reportModal.present();
-        reportModal.onWillDismiss((data) => {
+        const addReportModal: Modal = this.modalCtrl.create('AddReportPage');
+        addReportModal.present();
+        addReportModal.onWillDismiss((data) => {
           //ce dobimo podatke od modalnega okna jih shranimo, posljemo na bazo in izbrisemo iz local storega ter mape
           if (data != null) {
             data.value.markerData = markerData;

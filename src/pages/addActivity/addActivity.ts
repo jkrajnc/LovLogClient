@@ -5,10 +5,10 @@ import { Camera } from '@ionic-native/camera';
 
 @IonicPage()
 @Component({
-  selector: 'page-activity',
-  templateUrl: 'activity.html',
+  selector: 'page-addActivity',
+  templateUrl: 'addActivity.html',
 })
-export class ActivityPage {
+export class AddActivityPage {
 
   private activityData: FormGroup;
   private base64Image: string;
