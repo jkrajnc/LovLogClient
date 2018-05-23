@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { MapPage } from '../pages/map/map';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,7 +25,6 @@ import {SeznamPorocilPage} from "../pages/seznam-porocil/seznam-porocil";
     MyApp,
     HomePage,
     MapPage,
-    ListPage,
     SeznamPorocilPage,
     SeznamAktivnostiPage,
     DetailsAktivnostiPage
@@ -41,7 +40,6 @@ import {SeznamPorocilPage} from "../pages/seznam-porocil/seznam-porocil";
     MyApp,
     HomePage,
     MapPage,
-    ListPage,
     SeznamPorocilPage,
     SeznamAktivnostiPage,
     DetailsAktivnostiPage

@@ -1,12 +1,23 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>getReport</ion-title>
+    <ion-title>View report</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <form [formGroup]="chosenReport" (ngSubmit)="pickReport()">
+    <ion-item>
+      <ion-label>Reports</ion-label>
+      <ion-select [(ngModel)]="report" placeholder="Pick report">
+          <ion-option *ngFor="let report of reportList" [value]="report.naziv"></ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+      <button ion-button type="submit">View</button>
+      <button ion-button type="reset" (click)="closeModal()">Cancel</button>
+    </ion-item>
+  </form>
 </ion-content>
