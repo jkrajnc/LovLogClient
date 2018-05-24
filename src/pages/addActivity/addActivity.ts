@@ -18,15 +18,15 @@ export class AddActivityPage {
   constructor(private viewCtrl: ViewController, private formBuilder: FormBuilder, private camera: Camera) {
     //ustvarimo form
     this.activityData = this.formBuilder.group({
-      title: ['', Validators.required],
-      type: ['', Validators.required],
-      date: ['', Validators.required],
-      description: [''],
-      image: [''],
-      latitude: [''],
-      longitude: [''],
-      gameType: [''],
-      gameCategory: ['']
+      title: [null, Validators.required],
+      type: [null, Validators.required],
+      date: [null, Validators.required],
+      description: [null],
+      image: [null],
+      latitude: [null],
+      longitude: [null],
+      gameType: [null],
+      gameCategory: [null]
     });
     //default podatki, ki se prikazejo na formu ob odprtju
     this.defaultDate = new Date().toISOString();

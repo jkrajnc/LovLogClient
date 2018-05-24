@@ -9,6 +9,7 @@ import { Porocilo } from "../../model/porocilo";
 import { RestPorociloProvider } from "../../providers/rest-porocilo/rest-porocilo";
 import { Aktivnost } from "../../model/aktivnost";
 import { RestAktivnostProvider } from "../../providers/rest-aktivnost/rest-aktivnost";
+import { ActivityConverter } from "../../providers/rest-aktivnost/activityConverter";
 
 @Component({
   selector: 'page-map',
@@ -20,6 +21,7 @@ export class MapPage {
   map: GoogleMap;
   reportREST: RestPorociloProvider = new RestPorociloProvider(this.http);
   activityREST: RestAktivnostProvider = new RestAktivnostProvider(this.http);
+  activityConverter: ActivityConverter = new ActivityConverter();
 
   constructor(private navCtrl: NavController, private platform: Platform, private modalCtrl: ModalController, 
     private geolocation: Geolocation, private storage: Storage, private alertCtrl: AlertController, private http: HttpClient) {
@@ -118,19 +120,16 @@ export class MapPage {
         //ustvarimo marker
         this.createMarker(data.value);
 
-        const activity: Aktivnost = new Aktivnost(data.value.type, data.value.date, data.value.latitude, data.value.longitude,
-          data.value.description, data.value.gameType, data.value.gameCategory, data.value.image);
-
         //shranimo podatke markerja v local storagu
         this.storage.get('markerData').then((markerData) => {
           if (markerData == null) {
             markerData = [data.value];
-            let activityData: Aktivnost[];
-            activityData.push(activity);
-            this.storage.set('markerData', activityData);
-          } else {
-            markerData.push(activity);
             this.storage.set('markerData', markerData);
+            console.log(markerData);
+          } else {
+            markerData.push(data.value);
+            this.storage.set('markerData', markerData);
+            console.log(markerData);
           }
         });
       }
