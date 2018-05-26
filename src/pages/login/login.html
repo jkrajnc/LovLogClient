@@ -5,14 +5,23 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>login</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Prijava</ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content padding>
-
+  <form (ngSubmit) = "submitForm()">
+    <ion-item>
+      <ion-label floating>Uporabniško ime</ion-label>
+      <ion-input type="text" [(ngModel)]="form.username" name="Uporabnisko ime"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Geslo</ion-label>
+      <ion-input type="password" [(ngModel)]="form.password" name="Geslo"></ion-input>
+    </ion-item>
+    <button type="submit" ion-button block color="secondary" (click)="submitForm()" >Login</button>
+  </form>
 </ion-content>

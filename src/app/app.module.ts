@@ -19,40 +19,52 @@ import {SeznamAktivnostiPage} from "../pages/seznam-aktivnosti/seznam-aktivnosti
 import {DetailsAktivnostiPage} from "../pages/details-aktivnosti/details-aktivnosti";
 import {SeznamPorocilPage} from "../pages/seznam-porocil/seznam-porocil";
 import {MapPage} from "../pages/map/map";
+import {LoginPage} from "../pages/login/login";
+import {RegistrationPage} from "../pages/registration/registration";
+import { RestDruzinaProvider } from '../providers/rest-druzina/rest-druzina';
+import {FormsModule} from "@angular/forms";
+import { RestAuthProvider } from '../providers/rest-auth/rest-auth';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-    MapPage,
-    SeznamPorocilPage,
-    SeznamAktivnostiPage,
-    DetailsAktivnostiPage
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    MapPage,
-    SeznamPorocilPage,
-    SeznamAktivnostiPage,
-    DetailsAktivnostiPage
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    Geolocation,
-    Camera,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestClan,
-    RestPorociloProvider,
-    RestAktivnostProvider
-  ]
+    declarations: [
+        MyApp,
+        HomePage,
+        MapPage,
+        SeznamPorocilPage,
+        SeznamAktivnostiPage,
+        DetailsAktivnostiPage,
+        LoginPage,
+        RegistrationPage
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        IonicModule.forRoot(MyApp),
+        IonicStorageModule.forRoot(),
+        FormsModule
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        HomePage,
+        MapPage,
+        SeznamPorocilPage,
+        SeznamAktivnostiPage,
+        DetailsAktivnostiPage,
+        LoginPage,
+        RegistrationPage
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        Geolocation,
+        Camera,
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
+        RestClan,
+        RestPorociloProvider,
+        RestAktivnostProvider,
+        RestDruzinaProvider,
+        RestAuthProvider
+    ]
 })
 export class AppModule {}

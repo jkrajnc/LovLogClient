@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {RestPorociloProvider} from "../../providers/rest-porocilo/rest-porocilo";
 import {Porocilo} from "../../model/porocilo";
 import {SeznamAktivnostiPage} from "../seznam-aktivnosti/seznam-aktivnosti";
 import {Aktivnost} from "../../model/aktivnost";
+import {Storage} from "@ionic/storage";
 
 /**
  * Generated class for the SeznamPorocilPage page.
@@ -22,8 +23,15 @@ export class SeznamPorocilPage {
   porocila: Porocilo[];
   idPorocilo: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restPorociloProvider: RestPorociloProvider) {
-    this.getPorocilaByIdClan(2);
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              public restPorociloProvider: RestPorociloProvider,
+              private storage: Storage) {
+
+    storage.get("session").then((value =>{
+        this.getPorocilaByIdClan(value.id);
+    }));
+
+    //this.getPorocilaByIdClan(2);
   }
 
   getPorocilaByIdClan(id: number): void {

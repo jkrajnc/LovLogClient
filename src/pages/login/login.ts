@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {RestAuthProvider} from "../../providers/rest-auth/rest-auth";
+import { Storage} from "@ionic/storage";
+import {Clan} from "../../model/clan";
+import {Form} from "../../model/form";
+import {SeznamAktivnostiPage} from "../seznam-aktivnosti/seznam-aktivnosti";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the LoginPage page.
@@ -10,16 +16,30 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+    selector: 'page-login',
+    templateUrl: 'login.html',
 })
 export class LoginPage {
+    form = new Form();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(public navCtrl: NavController,
+                public restAuthProvider: RestAuthProvider,
+                public navParams: NavParams,
+                private storage: Storage) {
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad LoginPage');
+    }
 
+    signInClan(){
+        this.restAuthProvider.signIn(this.form).subscribe((res)=>{
+            this.storage.set("session", res);
+            this.navCtrl.push(HomePage);
+        })
+    }
+
+    submitForm(){
+        this.signInClan();
+    }
 }
