@@ -8,10 +8,10 @@
 
 
 <ion-content padding>
-  <form [formGroup]="chosenReport" (ngSubmit)="pickReport()">
+  <form (ngSubmit)="pickReport()">
     <ion-item>
       <ion-label>Reports</ion-label>
-      <ion-select [(ngModel)]="report" placeholder="Pick report">
+      <ion-select [(ngModel)]="report" name="reportPicker" placeholder="Pick report">
           <ion-option *ngFor="let report of reportList" [value]="report.naziv"></ion-option>
         </ion-select>
     </ion-item>
