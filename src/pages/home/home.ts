@@ -1,9 +1,7 @@
 import {Component, Input} from '@angular/core';
-import { NavController } from 'ionic-angular';
-import {RestClan} from "../../providers/rest-clan/rest-clan";
+import {NavController, NavParams} from 'ionic-angular';
 import {Clan} from "../../model/clan";
-import {RestAktivnostProvider} from "../../providers/rest-aktivnost/rest-aktivnost";
-import {RestPorociloProvider} from "../../providers/rest-porocilo/rest-porocilo";
+import {Storage} from "@ionic/storage";
 
 @Component({
   selector: 'page-home',
@@ -14,25 +12,17 @@ export class HomePage {
   clan: Clan;
   clani: Clan[];
 
-  constructor(public navCtrl: NavController, public restClan: RestClan, public restAktivnost: RestAktivnostProvider,
-              public restPorocilo: RestPorociloProvider) {
-    this.getClan(2);
-    this.getClanById(4);
+  constructor(public navCtrl: NavController,
+              public navParam: NavParams,
+              private storage: Storage) {
+
+
+    storage.get("session").then((value => {
+       this.clan = value;
+    }));
+  }
+
+  printClan(){
     console.log(this.clan);
   }
-
-  getClan(id: number): void {
-    this.restClan.getClan(id)
-      .subscribe(clan => this.clan = clan);
-  }
-
-  getClanById(id: number): void {
-    this.restClan.getClaniByIdLovskaDruzina(id)
-      .subscribe(clani => this.clani = clani);
-  }
-
-  goToSeznamPorocil(){
-    this.navCtrl.push('SeznamPorocilPage');
-  }
-
 }

@@ -24,30 +24,30 @@ export class RestAktivnostProvider {
   private aktivnostiUrl = this.domena + 'aktivnosti';
 
   //Poročila
-  getAktivnostiByIdPorocila(id: number): Observable<Porocilo[]> {
+  getAktivnostiByIdPorocila(id: number): Observable<Aktivnost[]> {
     const url = `${this.aktivnostiUrl}/porocila/${id}`;
-    return this.http.get<Porocilo[]>(url)
+    return this.http.get<Aktivnost[]>(url)
       .pipe(
         catchError(this.handleError('getPorocila',[])));
   }
 
-  getAktivnost<Data>(id: number): Observable<Porocilo>{
+  getAktivnost<Data>(id: number): Observable<Aktivnost>{
     const url = `${this.aktivnostiUrl}/${id}`;
-    return this.http.get<Porocilo>(url)
+    return this.http.get<Aktivnost>(url)
       .pipe(
         catchError(this.handleError<any>(`getPorocilo id=${id}`))
       )
   }
 
-  saveAktivnost(porocilo: Porocilo): Observable<Porocilo>{
-    return this.http.post<any>(this.aktivnostiUrl, porocilo);
+  saveAktivnost(aktivnost: Aktivnost): Observable<Aktivnost>{
+    return this.http.post<any>(this.aktivnostiUrl, aktivnost);
   }
 
-  updateAktivnost(porocilo: Porocilo): Observable<Porocilo>{
-    return this.http.put<any>(this.aktivnostiUrl, porocilo);
+  updateAktivnost(aktivnost: Aktivnost): Observable<Aktivnost>{
+    return this.http.put<any>(this.aktivnostiUrl, aktivnost);
   }
 
-  deleteAktivnost(id: number): Observable<Porocilo>{
+  deleteAktivnost(id: number): Observable<Aktivnost>{
     const url = `${this.aktivnostiUrl}/${id}`;
     return this.http.delete<any>(url);
   }

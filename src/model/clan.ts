@@ -9,6 +9,7 @@ export class Clan {
   priimek: string;
   vloga: string;
   telefonska_stevilka: string;
+  lovska_druzina_id: number;
   porocila: Porocilo[];
 
   constructor(){
