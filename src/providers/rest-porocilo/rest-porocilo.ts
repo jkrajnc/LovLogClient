@@ -40,7 +40,10 @@ export class RestPorociloProvider {
   }
 
   savePorocilo(porocilo: Porocilo): Observable<Porocilo>{
-    return this.http.post<any>(this.porocilaUrl, porocilo);
+    console.log(porocilo);
+    console.log(this.http.post<Porocilo>(this.porocilaUrl, porocilo));
+    return this.http.post<Porocilo>(this.porocilaUrl, porocilo)
+      .pipe(catchError(this.handleError('porocilo', porocilo)));
   }
 
   updatePorocilo(porocilo: Porocilo): Observable<Porocilo>{

@@ -3,6 +3,7 @@ import { IonicPage, ViewController, NavParams } from 'ionic-angular';
 import { Porocilo } from "../../model/porocilo";
 import { RestPorociloProvider } from "../../providers/rest-porocilo/rest-porocilo";
 import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -13,15 +14,13 @@ export class GetReportPage {
 
   idMember: number;
   reportREST: RestPorociloProvider = new RestPorociloProvider(this.http);
-  reportList: Porocilo[];
-  chosenReport: Porocilo;
+  reportList: any[];
+  chosenReport: any;
 
-  constructor(public viewCtrl: ViewController, public navParams: NavParams, private http: HttpClient) {
-  }
-
-  ionViewWillLoad(){
-    this.idMember = this.navParams.get("id");
-    //this.reportList = this.reportREST.getPorocilaByIdClan(this.idMember);
+  constructor(public viewCtrl: ViewController, public navParams: NavParams, private http: HttpClient, private storage: Storage) {
+    storage.get("session").then((value => {
+      this.reportREST.getPorocilaByIdClan(/*value.id*/2).subscribe(porocila => this.reportList = porocila);
+   }));
   }
 
   //posljemo prazne podatke

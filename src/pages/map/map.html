@@ -5,7 +5,7 @@
     <ion-buttons end>
       <button ion-button (click)="openGetReportModal()">
         <p>View report</p>
-        <ion-icon name="paper-plane"></ion-icon>
+        <ion-icon name="eye"></ion-icon>
       </button>
       <button ion-button (click)="openAddReportModal()">
         <p>Send report</p>
@@ -20,10 +20,10 @@
 <ion-content padding>
   <div #map id="map"></div>
   <div>
-    <button id="addMarker" ion-button icon-end (click) ="openViewActivityModal()">
+    <!--<button id="addMarker" ion-button icon-end (click) ="addMarkerButton()">
       <p>Add</p>
       <ion-icon name="pin"></ion-icon>
-    </button>
+    </button>-->
     <button id="clearMap" ion-button icon-end (click) ="clearMap()">
       <p>Clear</p>
       <ion-icon name="trash"></ion-icon>
