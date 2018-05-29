@@ -84,14 +84,14 @@ export class MapPage {
   }
 
   //ob kliku na gumb pridobimo nase koordinate, ki jih nato posljemo v modalno okno
-  /*addMarkerButton() {
+  addMarkerButton() {
     this.geolocation.getCurrentPosition().then((resp) => {
       let latLng: LatLng = new LatLng(resp.coords.latitude, resp.coords.longitude);
-      this.openActivityModal(latLng);
+      this.openAddActivityModal(latLng);
     }).catch((error) => {
       console.log('Error getting location', error);
     });
-  }*/
+  }
 
   //ustvarimo marker
   createMarker(data: any) {
@@ -126,7 +126,7 @@ export class MapPage {
         this.createMarker(data.value);
 
         //shranimo podatke markerja v local storagu
-        this.storage.get('markerData').then((markerData) => {
+        /*this.storage.get('markerData').then((markerData) => {
           if (markerData == null) {
             markerData = [data.value];
             this.storage.set('markerData', markerData);
@@ -134,7 +134,10 @@ export class MapPage {
             markerData.push(data.value);
             this.storage.set('markerData', markerData);
           }
-        });
+        });*/
+
+        const act = this.activityConverter.objectToActivity(data.value);
+        this.activityREST.saveAktivnost(act);
       }
 
     });
