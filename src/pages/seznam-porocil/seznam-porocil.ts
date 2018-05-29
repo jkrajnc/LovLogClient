@@ -37,7 +37,6 @@ export class SeznamPorocilPage {
   getPorocilaByIdClan(id: number): void {
     this.restPorociloProvider.getPorocilaByIdClan(id)
       .subscribe(porocila => this.porocila = porocila)
-
   }
 
   goToPorociloDetails(aktivnosti: Aktivnost[]){
