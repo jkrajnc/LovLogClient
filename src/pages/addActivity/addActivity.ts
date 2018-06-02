@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, ViewController, NavParams } from 'ionic-angular';
+import { IonicPage, ViewController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 
@@ -15,27 +15,23 @@ export class AddActivityPage {
   private defaultDate: string;
   private defaultType: string;
 
-  constructor(private viewCtrl: ViewController, private navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera) {
+  constructor(private viewCtrl: ViewController, private formBuilder: FormBuilder, private camera: Camera) {
     //ustvarimo form
     this.activityData = this.formBuilder.group({
-      title: ['', Validators.required],
-      type: ['', Validators.required],
-      date: ['', Validators.required],
-      description: [''],
-      image: [''],
-      latitude: [''],
-      longitude: [''],
-      gameType: [''],
-      gameCategory: ['']
+      title: [null, Validators.required],
+      type: [null, Validators.required],
+      date: [null, Validators.required],
+      description: [null],
+      image: [null],
+      latitude: [null],
+      longitude: [null],
+      gameType: [null],
+      gameCategory: [null]
     });
     //default podatki, ki se prikazejo na formu ob odprtju
     this.defaultDate = new Date().toISOString();
     this.defaultType = "dead";
   }
-
-  /*ionViewWillLoad(){
-    this.activityData = this.navParams.get("data");
-  }*/
 
   //posljemo podatke forma
   saveData() {

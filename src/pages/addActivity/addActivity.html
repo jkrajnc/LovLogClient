@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title *ngIf="defaultType=='dead'">Add activity</ion-title>
+    <ion-title>Add activity</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -23,11 +23,11 @@
         <ion-option value="help">Help</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item [hidden]="defaultType == 'dead'">
+    <ion-item [hidden]="defaultType == 'work' || defaultType == 'help'">
       <ion-label>Game type</ion-label>
       <ion-input type="text" formControlName="gameType"></ion-input>
     </ion-item>
-    <ion-item [hidden]="defaultType == 'dead'">
+    <ion-item [hidden]="defaultType == 'work' || defaultType == 'help'">
       <ion-label>Game category</ion-label>
       <ion-input type="text" formControlName="gameCategory"></ion-input>
     </ion-item>

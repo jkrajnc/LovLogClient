@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import {IonicApp, IonicErrorHandler, IonicModule, IonicPageModule} from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -24,6 +24,10 @@ import {RegistrationPage} from "../pages/registration/registration";
 import { RestDruzinaProvider } from '../providers/rest-druzina/rest-druzina';
 import {FormsModule} from "@angular/forms";
 import { RestAuthProvider } from '../providers/rest-auth/rest-auth';
+import {SeznamClanovPage} from "../pages/seznam-clanov/seznam-clanov";
+import {DetailsClanPage} from "../pages/details-clan/details-clan";
+import {SettingsPage} from "../pages/settings/settings";
+import {AboutPage} from "../pages/about/about";
 
 @NgModule({
     declarations: [
@@ -34,13 +38,18 @@ import { RestAuthProvider } from '../providers/rest-auth/rest-auth';
         SeznamAktivnostiPage,
         DetailsAktivnostiPage,
         LoginPage,
-        RegistrationPage
+        RegistrationPage,
+        SeznamClanovPage,
+        DetailsClanPage,
+        SettingsPage,
+        AboutPage
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
         IonicModule.forRoot(MyApp),
         IonicStorageModule.forRoot(),
+        IonicPageModule.forChild(MyApp),
         FormsModule
     ],
     bootstrap: [IonicApp],
@@ -52,7 +61,11 @@ import { RestAuthProvider } from '../providers/rest-auth/rest-auth';
         SeznamAktivnostiPage,
         DetailsAktivnostiPage,
         LoginPage,
-        RegistrationPage
+        RegistrationPage,
+        SeznamClanovPage,
+        DetailsClanPage,
+        SettingsPage,
+        AboutPage
     ],
     providers: [
         StatusBar,

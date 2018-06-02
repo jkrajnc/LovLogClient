@@ -1,0 +1,82 @@
+<!--
+  Generated template for the DetailsClanPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="page-title">
+    <h3 color="dark">KONTAKT</h3>
+  </div>
+  <ion-row>
+    <ion-col col-2>
+      <div class="person_icon">
+        <img src="../../assets/icon/person.png"/>
+      </div>
+    </ion-col>
+    <ion-col col-8>
+      <div class="contact">
+        <span>{{clan.ime}} {{clan.priimek}}</span>
+      </div>
+    </ion-col>
+    <ion-col col-2>
+      <div class="phone_icon">
+        <a href="tel:{{clan.telefonska_stevilka}}"><img src="../../assets/icon/phone.png"/></a>
+      </div>
+    </ion-col>
+  </ion-row>
+  <hr>
+  <div class="details">
+  <ion-row class="single">
+    <ion-col col-9 class="value">
+      <span>{{clan.vloga}}</span>
+    </ion-col>
+    <ion-col col-3 class="label">
+     <span>vloga</span>
+    </ion-col>
+  </ion-row>
+    <ion-row class="single">
+      <ion-col col-9 class="value">
+        <span>{{lovske_druzine.naziv}}</span>
+      </ion-col>
+      <ion-col col-3 class="label">
+        <span>društvo</span>
+      </ion-col>
+    </ion-row>
+    <ion-row class="single">
+      <ion-col col-9 class="value">
+        <span>{{clan.id}}</span>
+      </ion-col>
+      <ion-col col-3 class="label">
+        <span>id številka</span>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="details">
+    <ion-row class="single">
+      <ion-col col-9 class="value">
+        <span>{{clan.telefonska_stevilka}}</span>
+      </ion-col>
+      <ion-col col-3 class="label">
+        <span>tel. številka</span>
+      </ion-col>
+    </ion-row>
+    <ion-row class="single">
+      <ion-col col-9 class="value">
+        <span>{{clan.elektronska_posta}}</span>
+      </ion-col>
+      <ion-col col-3 class="label">
+        <span>email</span>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

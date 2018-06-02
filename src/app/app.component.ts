@@ -8,6 +8,8 @@ import {SeznamPorocilPage} from "../pages/seznam-porocil/seznam-porocil";
 import { MapPage } from '../pages/map/map';
 import { LoginPage} from "../pages/login/login";
 import {RegistrationPage} from "../pages/registration/registration";
+import {AddReportPage} from "../pages/addReport/addReport";
+import {DetailsClanPage} from "../pages/details-clan/details-clan";
 
 @Component({
     templateUrl: 'app.html'
@@ -22,14 +24,6 @@ export class MyApp {
     constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
         this.initializeApp();
 
-        // used for an example of ngFor and navigation
-        this.pages = [
-            { title: 'Home', component: HomePage },
-            { title: 'Seznam poročil', component: SeznamPorocilPage },
-            { title: 'Map', component: MapPage },
-            { title: 'Login', component: LoginPage},
-            { title: 'Registracija', component: RegistrationPage}
-        ];
     }
 
     initializeApp() {
