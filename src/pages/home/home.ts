@@ -2,10 +2,11 @@ import {Component, Input} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Clan} from "../../model/clan";
 import {Storage} from "@ionic/storage";
-import {AddReportPage} from "../addReport/addReport";
+//import {AddReportPage} from "../addReport/addReport";
 import {SeznamPorocilPage} from "../seznam-porocil/seznam-porocil";
 import {SeznamClanovPage} from "../seznam-clanov/seznam-clanov";
 import {SettingsPage} from "../settings/settings";
+import {MapPage} from "../map/map";
 
 @IonicPage({
     name: 'home'
@@ -37,7 +38,7 @@ export class HomePage {
   }
 
     addReport() {
-        this.navCtrl.push(AddReportPage);
+        this.navCtrl.push(MapPage);
     }
     archive() {
         this.navCtrl.push(SeznamPorocilPage);
