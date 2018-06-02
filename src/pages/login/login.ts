@@ -6,6 +6,7 @@ import {Clan} from "../../model/clan";
 import {Form} from "../../model/form";
 import {SeznamAktivnostiPage} from "../seznam-aktivnosti/seznam-aktivnosti";
 import {HomePage} from "../home/home";
+import {RegistrationPage} from "../registration/registration";
 
 /**
  * Generated class for the LoginPage page.
@@ -34,12 +35,17 @@ export class LoginPage {
 
     signInClan(){
         this.restAuthProvider.signIn(this.form).subscribe((res)=>{
-            this.storage.set("session", res);
-            this.navCtrl.push(HomePage);
+            if(res!=undefined){
+                this.storage.set("session", res);
+                this.navCtrl.push(HomePage);
+            }
         })
     }
 
     submitForm(){
         this.signInClan();
+    }
+    registracijaNav(){
+        this.navCtrl.push(RegistrationPage);
     }
 }
