@@ -4,6 +4,7 @@ import {of} from "rxjs/observable/of";
 import {Observable} from "rxjs/Observable";
 import {LovskaDruzina} from "../../model/lovskaDruzina";
 import {catchError} from "rxjs/operators";
+import {Clan} from "../../model/clan";
 
 /*
   Generated class for the RestDruzinaProvider provider.
@@ -14,8 +15,7 @@ import {catchError} from "rxjs/operators";
 @Injectable()
 export class RestDruzinaProvider {
 
-  private domena =  "http://localhost:3000/";
-
+  private domena =  "https://desolate-taiga-97058.herokuapp.com/";
   private druzinaUrl = this.domena + 'lovske_druzine';
 
 
@@ -29,6 +29,12 @@ export class RestDruzinaProvider {
             catchError(this.handleError<any>(`getLovskeDruzine`, []))
         )
   }
+    getLovskaDruzinaById<Data>(id: number): Observable<LovskaDruzina[]> {
+        const url = `${this.druzinaUrl}/${id}`;
+        return this.http.get<LovskaDruzina[]>(url)
+            .pipe(
+                catchError(this.handleError('getLovskaDruzinaById',[])));
+    }
 
     private handleError<T> (operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {

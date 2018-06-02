@@ -19,7 +19,7 @@ export class RestAktivnostProvider {
     console.log('Hello RestAktivnostProvider Provider');
   }
 
-  private domena = 'http://localhost:3000/';
+  private domena = 'https://desolate-taiga-97058.herokuapp.com/';
 
   private aktivnostiUrl = this.domena + 'aktivnosti';
 
