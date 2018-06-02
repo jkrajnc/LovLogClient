@@ -1,19 +1,48 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar class="topnavbar">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-row>
+    <ion-col>
+    <ion-title>LovoLog</ion-title>
+    </ion-col>
+    <ion-col>
+    <div class="settings" (click)="settings()">
+      <img class="gear_icon" src="../../assets/icon/gear.png">
+    </div>
+    </ion-col>
+    </ion-row>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-  <button></button>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+<ion-content>
+<ion-row>
+  <ion-col class="cardtop text-vertical-center" (click)="addReport()">
+    <div class="outer-wrapper">
+    <div class="inner">
+      <img class="img55" src="../../assets/icon/new.png"/>
+    <h3>DODAJ POROČILO</h3>
+    </div>
+    </div>
+  </ion-col>
+</ion-row>
+  <ion-row>
+    <ion-col col-6 class="cardleft cardbottom text-vertical-center" (click)="contacts()">
+      <div class="outer-wrapper">
+        <div class="inner">
+      <img class="img55" src="../../assets/icon/person.png"/>
+      <h3>KONTAKTI</h3>
+      </div>
+      </div>
+    </ion-col>
+    <ion-col col-6 class="cardright cardbottom text-vertical-center" (click)="archive()">
+      <div class="outer-wrapper">
+        <div class="inner">
+      <img class="img55" src="../../assets/icon/arhiv.png"/>
+      <h3>ARHIV</h3>
+      </div>
+      </div>
+    </ion-col>
+  </ion-row>
 </ion-content>

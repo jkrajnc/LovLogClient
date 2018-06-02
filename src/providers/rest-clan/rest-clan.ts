@@ -19,7 +19,7 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class RestClan {
 
-  private domena = 'http://localhost:3000/';
+  private domena = 'https://desolate-taiga-97058.herokuapp.com/';
   private claniUrl = this.domena + 'clani';
 
 

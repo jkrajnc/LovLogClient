@@ -4,6 +4,7 @@
 // Font path is used to include ionicons,
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
+$font-path2: "../assets/fonts";
 
 
 // The app direction is used to include
@@ -34,11 +35,11 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
+  primary: #27ae60,
+  secondary: #88d498,
+  danger: #46351d,
+  light: #524948,
+  dark: #363635,
   black: #000000
 );
 
@@ -85,5 +86,6 @@ $colors: (
 // Fonts
 // --------------------------------------------------
 
-@import "roboto";
-@import "noto-sans";
+//@import "roboto";
+//@import "noto-sans";
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');

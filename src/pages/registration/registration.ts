@@ -5,6 +5,7 @@ import {RestDruzinaProvider} from "../../providers/rest-druzina/rest-druzina";
 import {RestAuthProvider} from "../../providers/rest-auth/rest-auth";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Clan} from "../../model/clan";
+import {LoginPage} from "../login/login";
 
 /**
  * Generated class for the RegistrationPage page.
@@ -62,8 +63,6 @@ export class RegistrationPage {
         })
     };
 
-
-
     signUpClan(clan: Clan): void{
         this.restAuthProvider.signUp(clan)
             .subscribe();
@@ -86,14 +85,13 @@ export class RegistrationPage {
         this.registriranClan.lovska_druzina_id = this.registrationForm.controls['druzina'].value;
 
         this.signUpClan(this.registriranClan);
-        console.log(this.registriranClan);
+        this.navCtrl.push(LoginPage)
 
     }
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad RegistrationPage');
     }
-
 
     emailPattern = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
     textPattern = '[a-zA-Z ]*';

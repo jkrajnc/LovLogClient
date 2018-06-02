@@ -15,7 +15,7 @@ import {Form} from "../../model/form";
 @Injectable()
 export class RestAuthProvider {
 
-  private domena = 'http://localhost:3000/';
+  private domena = 'https://desolate-taiga-97058.herokuapp.com/';
 
   constructor(public http: HttpClient) {
     console.log('Hello RestAuthProvider Provider');

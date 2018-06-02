@@ -15,7 +15,7 @@ import{Porocilo} from "../../model/porocilo";
 @Injectable()
 export class RestPorociloProvider {
 
-  private domena = 'http://localhost:3000/';
+  private domena = 'https://desolate-taiga-97058.herokuapp.com/';
   private porocilaUrl = this.domena + 'porocila';
 
 
@@ -52,6 +52,7 @@ export class RestPorociloProvider {
     const url = `${this.porocilaUrl}/${id}`;
     return this.http.delete<any>(url);
   }
+
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

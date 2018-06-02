@@ -1,7 +1,15 @@
 import {Component, Input} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Clan} from "../../model/clan";
 import {Storage} from "@ionic/storage";
+import {AddReportPage} from "../addReport/addReport";
+import {SeznamPorocilPage} from "../seznam-porocil/seznam-porocil";
+import {SeznamClanovPage} from "../seznam-clanov/seznam-clanov";
+import {SettingsPage} from "../settings/settings";
+
+@IonicPage({
+    name: 'home'
+})
 
 @Component({
   selector: 'page-home',
@@ -11,6 +19,8 @@ export class HomePage {
 
   clan: Clan;
   clani: Clan[];
+
+  routes:any;
 
   constructor(public navCtrl: NavController,
               public navParam: NavParams,
@@ -25,4 +35,17 @@ export class HomePage {
   printClan(){
     console.log(this.clan);
   }
+
+    addReport() {
+        this.navCtrl.push(AddReportPage);
+    }
+    archive() {
+        this.navCtrl.push(SeznamPorocilPage);
+    }
+    contacts() {
+        this.navCtrl.push(SeznamClanovPage);
+    }
+    settings() {
+        this.navCtrl.push(SettingsPage);
+    }
 }

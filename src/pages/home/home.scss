@@ -1,3 +1,69 @@
 page-home {
-    
+  .back-button.show-back-button {
+    display:none;
+  }
+}
+@import "../../theme/variables";
+
+.text-vertical-center {
+  text-align: center;
+  vertical-align: middle;
+}
+.cardtop {
+  top:1%;
+  bottom:35%;
+  background: #27ae60;
+  border: 4px solid white;
+  position:absolute;
+}
+
+.cardbottom {
+  position:absolute;
+  top:65%;
+  bottom:1%;
+}
+.cardleft {
+  float:left;
+  background: #88d498;
+  border: 4px solid white;
+  left:0;
+}
+.cardright {
+  float:right;
+  background: #363635;
+  border: 4px solid white;
+  right:0;
+}
+
+.img55 {
+  width: 55%;
+}
+
+.center_content {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.outer-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.inner {
+  position: absolute;
+  top: 20%; left: 23%;
+  transform: translate(-15%,-0%);
+}
+
+
+@media(min-width:768px){
+  .img55 {
+    width: 20%;
+  }
+  .gear_icon {
+    width:5%;
+  }
 }
