@@ -19,14 +19,13 @@ import { ActivityConverter } from "../../providers/rest-aktivnost/activityConver
 export class MapPage {
 
   map: GoogleMap;
-  //reportREST: RestPorociloProvider = new RestPorociloProvider(this.http);
+  reportREST: RestPorociloProvider = new RestPorociloProvider(this.http);
   activityREST: RestAktivnostProvider = new RestAktivnostProvider(this.http);
   activityConverter: ActivityConverter = new ActivityConverter();
   index: number;
 
   constructor(private navCtrl: NavController, private platform: Platform, private modalCtrl: ModalController,
-    private geolocation: Geolocation, private storage: Storage, private alertCtrl: AlertController, private http: HttpClient,
-  private reportREST: RestPorociloProvider) {
+    private geolocation: Geolocation, private storage: Storage, private alertCtrl: AlertController, private http: HttpClient) {
     //ko se vse zazene inicializiramo mapo
     platform.ready().then(() => {
       this.initMap();
@@ -84,14 +83,14 @@ export class MapPage {
   }
 
   //ob kliku na gumb pridobimo nase koordinate, ki jih nato posljemo v modalno okno
-  addMarkerButton() {
+  /*addMarkerButton() {
     this.geolocation.getCurrentPosition().then((resp) => {
       let latLng: LatLng = new LatLng(resp.coords.latitude, resp.coords.longitude);
       this.openAddActivityModal(latLng);
     }).catch((error) => {
       console.log('Error getting location', error);
     });
-  }
+  }*/
 
   //ustvarimo marker
   createMarker(data: any) {
@@ -104,7 +103,6 @@ export class MapPage {
 
     //ustvarimo marker
     this.map.addMarker(options).then((marker: Marker) => {
-      //marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(this.openViewActivityModal.bind((this, data)));
       marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(binder => {
         this.openViewActivityModal(binder, data);
       });
@@ -126,7 +124,7 @@ export class MapPage {
         this.createMarker(data.value);
 
         //shranimo podatke markerja v local storagu
-        /*this.storage.get('markerData').then((markerData) => {
+        this.storage.get('markerData').then((markerData) => {
           if (markerData == null) {
             markerData = [data.value];
             this.storage.set('markerData', markerData);
@@ -134,10 +132,7 @@ export class MapPage {
             markerData.push(data.value);
             this.storage.set('markerData', markerData);
           }
-        });*/
-
-        const act = this.activityConverter.objectToActivity(data.value);
-        this.activityREST.saveAktivnost(act);
+        });
       }
 
     });
@@ -151,9 +146,6 @@ export class MapPage {
       if (data2 == "Delete") {
         binder[1].remove();
         this.storage.get('markerData').then((markerData) => {
-          /*this.compareArrays(markerData, data1).then(binder => {
-            console.log(binder);
-          });*/
           this.compareArrays(markerData, data1);
           markerData.splice(this.index, 1);
           this.storage.set('markerData', markerData);
@@ -171,7 +163,7 @@ export class MapPage {
   }
 
   //ustvarimo modalno okno za porocilo
-  /*openAddReportModal() {
+  openAddReportModal() {
     //preverimo ce sploh imamo markerje na zemljevidu, ce jih ni ustvarimo alert
     this.storage.get('markerData').then((markerData) => {
       if (markerData != null) {
@@ -180,8 +172,8 @@ export class MapPage {
         addReportModal.onWillDismiss((data) => {
           //ce dobimo podatke od modalnega okna jih shranimo, posljemo na bazo in izbrisemo iz local storega ter mape
           if (data != null) {
-            const report: Porocilo = new Porocilo(1, data.value.title, data.value.date)//, this.activityConverter.arrayToActivities(markerData));
-            this.reportREST.savePorocilo(report);
+            const report: Porocilo = new Porocilo(1, data.value.title, data.value.date, this.activityConverter.arrayToActivities(markerData));
+            this.reportREST.savePorocilo(report).subscribe();
             this.clearMap();
           }
         });
@@ -195,19 +187,6 @@ export class MapPage {
         alert.present();
       }
     });
-  }*/
-
-  openAddReportModal() {
-    //preverimo ce sploh imamo markerje na zemljevidu, ce jih ni ustvarimo alert
-    const addReportModal: Modal = this.modalCtrl.create('AddReportPage');
-    addReportModal.present();
-    addReportModal.onWillDismiss((data) => {
-      //ce dobimo podatke od modalnega okna jih shranimo, posljemo na bazo in izbrisemo iz local storega ter mape
-      if (data != null) {
-        const report: Porocilo = new Porocilo(1, data.value.title, data.value.date)//, this.activityConverter.arrayToActivities(markerData));
-        this.reportREST.savePorocilo(report);
-      }
-    });
   }
 
   //odpremo modalno okno, ki nam prikaze vsa nasa porocila
@@ -219,7 +198,6 @@ export class MapPage {
       if (data != null) {
         const report: any = data;
         const markerData = this.activityConverter.activitiesToArray(report);
-        console.log(markerData);
         this.clearMap();
         this.generateMarkers(markerData);
       }
