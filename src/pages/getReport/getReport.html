@@ -11,9 +11,9 @@
   <form (ngSubmit)="pickReport()">
     <ion-item>
       <ion-label>Reports</ion-label>
-      <ion-select [(ngModel)]="report" name="reportPicker" placeholder="Pick report">
-          <ion-option *ngFor="let report of reportList" [value]="report.naziv"></ion-option>
-        </ion-select>
+      <ion-select [(ngModel)]="chosenReport" name="reportPicker" placeholder="Pick report">
+        <ion-option *ngFor="let report of reportList" [value]="report.aktivnosti">{{report.naziv}}</ion-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <button ion-button type="submit">View</button>

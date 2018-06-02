@@ -26,7 +26,7 @@ export class RegistrationPage {
     lovskeDruzine: LovskaDruzina[];
     registrationForm: FormGroup;
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                public restDruzinaProvider: RestDruzinaProvider, public restAuthProvider: RestAuthProvider  ,private formBuilder: FormBuilder){
+                public restDruzinaProvider: RestDruzinaProvider, public restAuthProvider: RestAuthProvider, private formBuilder: FormBuilder){
         this.getLovskeDruzine();
         this.registrationForm = this.formBuilder.group( {
             userName:['', Validators.compose([

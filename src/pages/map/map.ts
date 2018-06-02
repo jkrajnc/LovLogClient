@@ -86,7 +86,7 @@ export class MapPage {
   /*addMarkerButton() {
     this.geolocation.getCurrentPosition().then((resp) => {
       let latLng: LatLng = new LatLng(resp.coords.latitude, resp.coords.longitude);
-      this.openActivityModal(latLng);
+      this.openAddActivityModal(latLng);
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -103,7 +103,6 @@ export class MapPage {
 
     //ustvarimo marker
     this.map.addMarker(options).then((marker: Marker) => {
-      //marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(this.openViewActivityModal.bind((this, data)));
       marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(binder => {
         this.openViewActivityModal(binder, data);
       });
@@ -147,9 +146,6 @@ export class MapPage {
       if (data2 == "Delete") {
         binder[1].remove();
         this.storage.get('markerData').then((markerData) => {
-          /*this.compareArrays(markerData, data1).then(binder => {
-            console.log(binder);
-          });*/
           this.compareArrays(markerData, data1);
           markerData.splice(this.index, 1);
           this.storage.set('markerData', markerData);
@@ -176,8 +172,8 @@ export class MapPage {
         addReportModal.onWillDismiss((data) => {
           //ce dobimo podatke od modalnega okna jih shranimo, posljemo na bazo in izbrisemo iz local storega ter mape
           if (data != null) {
-            const report: Porocilo = new Porocilo(data.value.title, data.value.date, this.activityConverter.arrayToActivities(markerData));
-            //this.reportREST.savePorocilo(report);
+            const report: Porocilo = new Porocilo(1, data.value.title, data.value.date, this.activityConverter.arrayToActivities(markerData));
+            this.reportREST.savePorocilo(report).subscribe();
             this.clearMap();
           }
         });
@@ -195,14 +191,13 @@ export class MapPage {
 
   //odpremo modalno okno, ki nam prikaze vsa nasa porocila
   openGetReportModal() {
-    const id = 1;
-    const getReportModal: Modal = this.modalCtrl.create('GetReportPage', { data: id });
+    const getReportModal: Modal = this.modalCtrl.create('GetReportPage');
     getReportModal.present();
     getReportModal.onWillDismiss((data) => {
       //ce izberemo porocilo ga prikazemo na mapi
       if (data != null) {
-        const report: Porocilo = data;
-        const markerData = this.activityConverter.activitiesToArray(report.aktivnosti);
+        const report: any = data;
+        const markerData = this.activityConverter.activitiesToArray(report);
         this.clearMap();
         this.generateMarkers(markerData);
       }
