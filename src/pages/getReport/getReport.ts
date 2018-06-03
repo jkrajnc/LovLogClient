@@ -19,7 +19,7 @@ export class GetReportPage {
 
   constructor(public viewCtrl: ViewController, public navParams: NavParams, private http: HttpClient, private storage: Storage) {
     storage.get("session").then((value => {
-      this.reportREST.getPorocilaByIdClan(/*value.id*/2).subscribe(porocila => this.reportList = porocila);
+      this.reportREST.getPorocilaByIdClan(value.id).subscribe(porocila => this.reportList = porocila);
    }));
   }
 

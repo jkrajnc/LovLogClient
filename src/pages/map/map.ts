@@ -23,17 +23,23 @@ export class MapPage {
   activityREST: RestAktivnostProvider = new RestAktivnostProvider(this.http);
   activityConverter: ActivityConverter = new ActivityConverter();
   index: number;
+  userID: number;
+  markerLocalStorageName: string;
 
   constructor(private navCtrl: NavController, private platform: Platform, private modalCtrl: ModalController,
     private geolocation: Geolocation, private storage: Storage, private alertCtrl: AlertController, private http: HttpClient) {
     //ko se vse zazene inicializiramo mapo
     platform.ready().then(() => {
-      this.initMap();
-      this.storage.get('markerData').then((markerData) => {
-        if (markerData != null) {
-          this.generateMarkers(markerData);
-        }
-      });
+      storage.get("session").then((value => {
+        this.userID = value.id;
+        this.markerLocalStorageName = "markerData" + value.id;
+        this.initMap();
+        this.storage.get(this.markerLocalStorageName).then((markerData) => {
+          if (markerData != null) {
+            this.generateMarkers(markerData);
+          }
+        });
+      }));
     });
   }
 
@@ -124,13 +130,13 @@ export class MapPage {
         this.createMarker(data.value);
 
         //shranimo podatke markerja v local storagu
-        this.storage.get('markerData').then((markerData) => {
+        this.storage.get(this.markerLocalStorageName).then((markerData) => {
           if (markerData == null) {
             markerData = [data.value];
-            this.storage.set('markerData', markerData);
+            this.storage.set(this.markerLocalStorageName, markerData);
           } else {
             markerData.push(data.value);
-            this.storage.set('markerData', markerData);
+            this.storage.set(this.markerLocalStorageName, markerData);
           }
         });
       }
@@ -145,16 +151,16 @@ export class MapPage {
       //ce dobimo podatke od modalnega okna jih shranimo, posljemo na bazo in izbrisemo iz local storega ter mape
       if (data2 == "Delete") {
         binder[1].remove();
-        this.storage.get('markerData').then((markerData) => {
+        this.storage.get(this.markerLocalStorageName).then((markerData) => {
           this.compareArrays(markerData, data1);
           markerData.splice(this.index, 1);
-          this.storage.set('markerData', markerData);
+          this.storage.set(this.markerLocalStorageName, markerData);
         });
       } else if (data2 != null) {
-        this.storage.get('markerData').then((markerData) => {
+        this.storage.get(this.markerLocalStorageName).then((markerData) => {
           this.compareArrays(markerData, data2[0]);
           markerData[this.index] = data2[1];
-          this.storage.set('markerData', markerData);
+          this.storage.set(this.markerLocalStorageName, markerData);
           binder[1].remove();
           this.generateMarkers([data2[1]]);
         });
@@ -165,7 +171,7 @@ export class MapPage {
   //ustvarimo modalno okno za porocilo
   openAddReportModal() {
     //preverimo ce sploh imamo markerje na zemljevidu, ce jih ni ustvarimo alert
-    this.storage.get('markerData').then((markerData) => {
+    this.storage.get(this.markerLocalStorageName).then((markerData) => {
       if (markerData != null) {
         const addReportModal: Modal = this.modalCtrl.create('AddReportPage');
         addReportModal.present();
@@ -213,7 +219,7 @@ export class MapPage {
 
   //pocistimo mapo in local storage
   clearMap() {
-    this.storage.remove("markerData");
+    this.storage.remove(this.markerLocalStorageName);
     this.map.clear();
   }
 
