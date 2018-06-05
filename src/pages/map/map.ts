@@ -178,7 +178,7 @@ export class MapPage {
         addReportModal.onWillDismiss((data) => {
           //ce dobimo podatke od modalnega okna jih shranimo, posljemo na bazo in izbrisemo iz local storega ter mape
           if (data != null) {
-            const report: Porocilo = new Porocilo(1, data.value.title, data.value.date, this.activityConverter.arrayToActivities(markerData));
+            const report: Porocilo = new Porocilo(this.userID, data.value.title, data.value.date, this.activityConverter.arrayToActivities(markerData));
             this.reportREST.savePorocilo(report).subscribe();
             this.clearMap();
           }
