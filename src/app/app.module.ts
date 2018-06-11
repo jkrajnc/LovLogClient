@@ -28,6 +28,7 @@ import {SeznamClanovPage} from "../pages/seznam-clanov/seznam-clanov";
 import {DetailsClanPage} from "../pages/details-clan/details-clan";
 import {SettingsPage} from "../pages/settings/settings";
 import {AboutPage} from "../pages/about/about";
+import {EditClanPage} from "../pages/edit-clan/edit-clan";
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import {AboutPage} from "../pages/about/about";
         SeznamClanovPage,
         DetailsClanPage,
         SettingsPage,
-        AboutPage
+        AboutPage,
+        EditClanPage
     ],
     imports: [
         BrowserModule,
@@ -65,7 +67,8 @@ import {AboutPage} from "../pages/about/about";
         SeznamClanovPage,
         DetailsClanPage,
         SettingsPage,
-        AboutPage
+        AboutPage,
+        EditClanPage
     ],
     providers: [
         StatusBar,

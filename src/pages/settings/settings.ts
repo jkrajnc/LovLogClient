@@ -5,6 +5,7 @@ import {Clan} from "../../model/clan";
 import {AddReportPage} from "../addReport/addReport";
 import {LoginPage} from "../login/login";
 import {AboutPage} from "../about/about";
+import {EditClanPage} from "../edit-clan/edit-clan";
 
 /**
  * Generated class for the SettingsPage page.
@@ -40,5 +41,8 @@ export class SettingsPage {
     }
     about() {
       this.navCtrl.push(AboutPage);
+    }
+    edit() {
+        this.navCtrl.push(EditClanPage , {clan: this.clan});
     }
 }
